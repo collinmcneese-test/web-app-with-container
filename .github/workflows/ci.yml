@@ -3,6 +3,10 @@ name: CI
 on:
   pull_request:
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   dependency-check:
     runs-on: ubuntu-latest
