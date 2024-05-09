@@ -40,8 +40,7 @@ jobs:
 
       - name: Prep
         run: |
-          echo Building with Runner version ${{ steps.output-collector.outputs.output }}
-          echo ${{ steps.output-collector.outputs.output }} | grep 2
+          echo Building with version ${{ steps.output-collector.outputs.output }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
