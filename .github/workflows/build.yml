@@ -1,9 +1,10 @@
-name: CI
+name: build
 
 on:
   push:
     branches:
-      - main
+    - main
+  workflow_dispatch:
 
 
 env:
