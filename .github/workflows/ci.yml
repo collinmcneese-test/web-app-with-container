@@ -30,6 +30,36 @@ jobs:
         run: npm install
       - name: test
         run: npm test
+
+  build-web-artifact:
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: dependencies
+        run: npm install
+      - name: build
+        run: npm run build
+      - name: Attest
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: '${{ github.workspace }}/dist'
+      - name: Archive production artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-artifact
+          path: '${{ github.workspace }}/dist'
+
   build-docker-image:
     runs-on: ubuntu-latest
     permissions:
