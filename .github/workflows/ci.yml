@@ -50,15 +50,18 @@ jobs:
         run: npm install
       - name: build
         run: npm run build
+      - name: Create release artifact
+        run: |
+          tar -czvf release.tar.gz dist
       - name: Attest
         uses: actions/attest-build-provenance@v1
         with:
-          subject-path: '${{ github.workspace }}/dist'
+          subject-path: '${{ github.workspace }}/release.tar.gz'
       - name: Archive production artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: web-artifact
-          path: dist
+          path: '${{ github.workspace }}/release.tar.gz'
 
   build-docker-image:
     runs-on: ubuntu-latest
