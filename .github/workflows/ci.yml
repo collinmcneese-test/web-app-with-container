@@ -117,6 +117,12 @@ jobs:
           echo "metadata: ${{ steps.build-docker.outputs.metadata }}"
           echo "imageid: ${{ steps.build-docker.outputs.imageid }}"
 
+      - name: docker - apk list
+        run: |
+          echo '```plain' >> $GITHUB_STEP_SUMMARY
+          docker run --rm "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.output-collector.outputs.output }}" apk list >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
       - name: docker - Build Attestation
         continue-on-error: true
         uses: actions/attest-build-provenance@v1
