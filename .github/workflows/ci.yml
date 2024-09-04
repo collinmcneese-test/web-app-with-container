@@ -118,7 +118,7 @@ jobs:
           echo "imageid: ${{ steps.build-docker.outputs.imageid }}"
 
       - name: docker - apk list
-        run:
+        run: |
           echo '```plain' >> $GITHUB_STEP_SUMMARY
           docker run --rm "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.output-collector.outputs.output }}" apk list >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
