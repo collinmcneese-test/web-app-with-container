@@ -47,11 +47,11 @@ jobs:
       - name: build
         run: npm run build
       - name: Attest
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: '${{ github.workspace }}/dist'
       - name: Archive production artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: web-artifact
           path: '${{ github.workspace }}/dist'
@@ -126,7 +126,7 @@ jobs:
 
       - name: docker - Build Attestation
         continue-on-error: true
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-name: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.output-collector.outputs.output }}"
           subject-digest: "${{ steps.build-docker.outputs.digest }}"
